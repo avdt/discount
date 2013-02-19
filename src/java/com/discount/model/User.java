@@ -1,4 +1,4 @@
-package java.com.discount.model;
+package com.discount.model;
 
 public class User {
 
