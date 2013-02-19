@@ -1,9 +1,34 @@
-package java.com.discount.model;
+package com.discount.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(name = "product_settings", uniqueConstraints = { @UniqueConstraint(columnNames = "id") })
 public class ProductSettings {
+
+	@Id
+	@SequenceGenerator(name = "id_seq", sequenceName = "product_settings_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq")
+	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
-	private Integer productId;
+
+	@ManyToOne
+	@JoinColumn(name = "productId")
+	private Product product;
+
+	@Column(name = "propertyName", unique = false, nullable = false, length = 100)
 	private String propertyName;
+
+	@Column(name = "propertyValue", unique = false, nullable = false, length = 100)
 	private String propertyValue;
 
 	public Integer getId() {
@@ -12,14 +37,6 @@ public class ProductSettings {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
 	}
 
 	public String getPropertyName() {
@@ -36,5 +53,13 @@ public class ProductSettings {
 
 	public void setPropertyValue(String propertyValue) {
 		this.propertyValue = propertyValue;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 }
