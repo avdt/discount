@@ -1,11 +1,13 @@
 package java.com.discount.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Product {
 
 	private Integer id;
 	private Integer clientId;
+	private Integer productCategoryId;
 	private String name;
 	private String longDescription;
 	private String shortDescription;
@@ -14,6 +16,7 @@ public class Product {
 	private Integer discount;
 	private Date beginShowDate;
 	private Date endShowDate;
+	private List<ProductSettings> settings;
 
 	public Integer getId() {
 		return id;
@@ -93,6 +96,30 @@ public class Product {
 
 	public void setEndShowDate(Date endShowDate) {
 		this.endShowDate = endShowDate;
+	}
+
+	public ProductCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(ProductCategory category) {
+		this.category = category;
+	}
+
+	public Integer getProductCategoryId() {
+		return productCategoryId;
+	}
+
+	public void setProductCategoryId(Integer productCategoryId) {
+		this.productCategoryId = productCategoryId;
+	}
+
+	public List<ProductSettings> getSettings() {
+		return settings;
+	}
+
+	public void setSettings(List<ProductSettings> settings) {
+		this.settings = settings;
 	}
 
 }
