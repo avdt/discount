@@ -2,12 +2,7 @@ package com.discount.dao;
 
 import com.discount.model.Client;
 
-public interface ClientDAO {
-	void save(Client stock);
-
-	void update(Client stock);
-
-	void delete(Client stock);
+public interface ClientDAO extends GenericDAO<Client> {
 
 	Client findByName(String name);
 }

@@ -1,16 +1,20 @@
 package com.discount.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "user_role", uniqueConstraints = {
+@Table(name = "role", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "id"),
 		@UniqueConstraint(columnNames = "role") })
 public class UserRole {
@@ -21,6 +25,9 @@ public class UserRole {
 
 	@Column(name = "role", unique = true, nullable = false, length = 100)
 	private String role;
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+	private List<User> users;
 
 	public Integer getId() {
 		return id;
@@ -38,4 +45,25 @@ public class UserRole {
 		this.role = role;
 	}
 
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean result = false;
+		UserRole userRole;
+		if (obj instanceof UserRole) {
+			userRole = (UserRole) obj;
+
+			if (this.getRole().equals(userRole.getRole())) {
+				result = true;
+			}
+		}
+		return result;
+	}
 }

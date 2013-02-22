@@ -22,6 +22,12 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		<property name="annotatedClasses">
 			<list>
 				<value>com.discount.model.Client</value>
+				<value>com.discount.model.Comment</value>
+				<value>com.discount.model.Product</value>
+				<value>com.discount.model.ProductCategory</value>
+				<value>com.discount.model.ProductSettings</value>
+				<value>com.discount.model.User</value>
+				<value>com.discount.model.UserRole</value>
 			</list>
 		</property>
 

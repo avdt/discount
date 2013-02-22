@@ -3,7 +3,6 @@
     <wb-module deploy-name="Discount">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test"/>
         <property name="context-root" value="Discount"/>
         <property name="java-output-path" value="/Discount/build/classes"/>

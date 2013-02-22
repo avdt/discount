@@ -11,6 +11,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.CollectionOfElements;
+
 @Entity
 @Table(name = "product_category", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "id"),
@@ -26,6 +28,7 @@ public class ProductCategory {
 	@Column(name = "name", unique = true, nullable = false, length = 100)
 	private String name;
 
+	@CollectionOfElements
 	@Column(name = "settings", unique = false, nullable = false, length = 100)
 	private List<String> settings;
 

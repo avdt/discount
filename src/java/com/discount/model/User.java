@@ -1,22 +1,25 @@
 package com.discount.model;
 
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "user", uniqueConstraints = {
+@Table(name = "`user`", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "id"),
-		@UniqueConstraint(columnNames = "login"),
-		@UniqueConstraint(columnNames = "email") })
+		@UniqueConstraint(columnNames = "login") })
 public class User {
 
 	@Id
@@ -25,23 +28,24 @@ public class User {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "login", unique = true, nullable = false, length = 100)
+	@Column(name = "login")
 	private String login;
 
-	@Column(name = "password", unique = false, nullable = false, length = 100)
+	@Column(name = "password")
 	private String password;
 
-	@Column(name = "firstName", unique = false, nullable = true, length = 100)
+	@Column(name = "`firstName`")
 	private String firstName;
 
-	@Column(name = "lastName", unique = false, nullable = true, length = 100)
+	@Column(name = "`lastName`")
 	private String lastName;
 
-	@Column(name = "email", unique = true, nullable = false, length = 100)
+	@Column(name = "email")
 	private String email;
 
-	@OneToMany
-	private Set<UserRole> role;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "`user_role`", joinColumns = { @JoinColumn(name = "`userId`", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "`roleId`", nullable = false, updatable = false) })
+	private List<UserRole> roles;
 
 	public Integer getId() {
 		return id;
@@ -91,11 +95,31 @@ public class User {
 		this.email = email;
 	}
 
-	public Set<UserRole> getRole() {
-		return role;
+	public List<UserRole> getRoles() {
+		return roles;
 	}
 
-	public void setRole(Set<UserRole> role) {
-		this.role = role;
+	public void setRoles(List<UserRole> roles) {
+		this.roles = roles;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean result = false;
+		User user;
+		if (obj instanceof User) {
+			user = (User) obj;
+
+			if (this.getLogin().equals(user.getLogin())
+					&& this.getEmail().equals(user.getEmail())
+					&& this.getPassword().equals(user.getPassword())
+					&& this.getFirstName().equals(user.getFirstName())
+					&& this.getLastName().equals(user.getLastName())
+			/* && this.getRoles().equals(user.getRoles()) */) {
+				result = true;
+			}
+		}
+		return result;
+	}
+
 }

@@ -21,7 +21,7 @@ public class Client {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "name", unique = true, nullable = false, length = 100)
+	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 
 	@Column(name = "type", nullable = true, unique = false)
@@ -49,5 +49,20 @@ public class Client {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean result = false;
+		Client client;
+		if (obj instanceof Client) {
+			client = (Client) obj;
+
+			if (this.getName().equals(client.getName())
+					&& this.getType().equals(client.getType())) {
+				result = true;
+			}
+		}
+		return result;
 	}
 }
