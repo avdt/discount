@@ -1,10 +1,15 @@
 package com.discount.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -26,6 +31,9 @@ public class Client {
 
 	@Column(name = "type", nullable = true, unique = false)
 	private String type;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "client")
+	private List<Product> products;
 
 	public Integer getId() {
 		return id;
@@ -64,5 +72,13 @@ public class Client {
 			}
 		}
 		return result;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 }

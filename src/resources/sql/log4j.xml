@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+	<appenders>
+		<Syslog name="bsd" host="localhost" port="514" protocol="UDP" />
+		<Syslog name="RFC5424" format="RFC5424" host="localhost" port="1468" protocol="TCP" appName="discount" includeMDC="true" facility="LOCAL0" enterpriseNumber="18060" newLine="true" messageId="Audit" id="App" />
+	</appenders>
+	<loggers>
+		<logger name="com.discount" level="error">
+			<appender-ref ref="RFC5424" />
+		</logger>
+		<root level="error">
+			<appender-ref ref="bsd" />
+		</root>
+	</loggers>
+</log4j:configuration>

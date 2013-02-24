@@ -26,7 +26,7 @@ public class UserRole {
 	@Column(name = "role", unique = true, nullable = false, length = 100)
 	private String role;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
 	private List<User> users;
 
 	public Integer getId() {

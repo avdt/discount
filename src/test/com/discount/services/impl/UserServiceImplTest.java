@@ -29,6 +29,11 @@ public class UserServiceImplTest {
 
 		Assert.assertEquals(user, userByEmail);
 
+		List<UserRole> roles = userByEmail.getRoles();
+		for (UserRole userRole : roles) {
+			System.out.println(userRole.getRole());
+		}
+
 		User userByLogin = userService.findByLogin(user.getLogin());
 		Assert.assertEquals(user, userByLogin);
 
@@ -38,22 +43,19 @@ public class UserServiceImplTest {
 
 	@Test
 	public void testUpdate() {
-		// UserService userService = (UserService) appContext
-		// .getBean("userService");
-		//
-		// User user = getUser();
-		//
-		// userService.save(user);
-		// User userByEmail = userService.findByEmail(user.getEmail());
-		//
-		// userByEmail.setEmail("Updated email");
-		//
-		// userService.update(userByEmail);
-		//
-		// User updatedUser = userService.findByLogin(user.getLogin());
-		//
-		// Assert.assertEquals(userByEmail, updatedUser);
+		UserService userService = (UserService) appContext
+				.getBean("userService");
 
+		User user = getUser();
+		userService.save(user);
+		User userByEmail = userService.findByEmail(user.getEmail());
+		userByEmail.setEmail("Updated email");
+		userService.update(userByEmail);
+		User updatedUser = userService.findByLogin(user.getLogin());
+
+		Assert.assertEquals(userByEmail, updatedUser);
+
+		userService.delete(updatedUser);
 	}
 
 	private User getUser() {

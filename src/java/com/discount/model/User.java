@@ -43,7 +43,7 @@ public class User {
 	@Column(name = "email")
 	private String email;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "`user_role`", joinColumns = { @JoinColumn(name = "`userId`", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "`roleId`", nullable = false, updatable = false) })
 	private List<UserRole> roles;
 

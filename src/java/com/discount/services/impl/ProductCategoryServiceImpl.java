@@ -40,4 +40,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		return this.productCategoryDAO.findAll();
 	}
 
+	@Override
+	public ProductCategory findByName(String mane) {
+		return this.productCategoryDAO.findByName(mane);
+	}
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import javax.persistence.CascadeType;
 
 @Entity
 @Table(name = "product", uniqueConstraints = {
@@ -27,11 +30,11 @@ public class Product {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "clientId")
 	private Client client;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "productCategoryId")
 	private ProductCategory productCategory;
 
@@ -59,7 +62,7 @@ public class Product {
 	@Column(name = "endShowDate", unique = false, nullable = true, length = 100)
 	private Date endShowDate;
 
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private List<ProductSettings> settings;
 
 	public Integer getId() {

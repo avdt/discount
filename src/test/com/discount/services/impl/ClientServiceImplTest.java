@@ -50,6 +50,7 @@ public class ClientServiceImplTest {
 
 		Assert.assertEquals(actualClient, updatedClient);
 
+		clientService.delete(expectedClient);
 	}
 
 	private Client getClient() {

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.discount.dao.ProductDAO;
-import com.discount.model.Client;
 import com.discount.model.Product;
 import com.discount.util.CustomHibernateDaoSupport;
 
