@@ -47,4 +47,18 @@ public class ProductDAOImpl extends CustomHibernateDaoSupport implements
 		return list;
 	}
 
+	@Override
+	public Product findByName(String name) {
+		List<Product> list = getHibernateTemplate().find(
+				"from Product where name=?", name);
+		return list.get(0);
+	}
+
+	@Override
+	public List<Product> findByCategoryId(Integer productCategoryId) {
+		List<Product> list = getHibernateTemplate().find(
+				"from Product where productCategoryId=?", productCategoryId);
+		return list;
+	}
+
 }

@@ -12,47 +12,57 @@ import com.discount.model.ProductCategory;
 import com.discount.services.ProductCategoryService;
 
 public class ProductCategoryServiceImplTest {
-	private ApplicationContext appContext;
-	private ProductCategoryService productCategoryService;
+	ApplicationContext appContext = new ClassPathXmlApplicationContext(
+			"spring/config/BeanLocations.xml");
 
 	@Test
 	public void testSaveAndFind() {
-		appContext = new ClassPathXmlApplicationContext(
-				"spring/config/BeanLocations.xml");
-		productCategoryService = (ProductCategoryService) appContext
+		ProductCategoryService productCategoryService = (ProductCategoryService) appContext
 				.getBean("productCategoryService");
 
-		ProductCategory productCategory = getProductCategory();
+		ProductCategory expectedCategory = getTest();
 
-		productCategoryService.save(productCategory);
-		ProductCategory categoryByName = productCategoryService
-				.findByName(productCategory.getName());
+		productCategoryService.save(expectedCategory);
 
-		Assert.assertEquals(productCategory, categoryByName);
+		ProductCategory actualCategory = productCategoryService
+				.findByName(expectedCategory.getName());
 
-		productCategoryService.delete(categoryByName);
+		Assert.assertEquals(expectedCategory, actualCategory);
+
+		ProductCategory categoryById = productCategoryService
+				.findById(expectedCategory.getId());
+
+		Assert.assertEquals(expectedCategory, categoryById);
+
+		productCategoryService.delete(expectedCategory);
 	}
 
 	@Test
 	public void testUpdate() {
+		ProductCategoryService productCategoryService = (ProductCategoryService) appContext
+				.getBean("productCategoryService");
 
+		ProductCategory productCategory = getTest();
+
+		productCategoryService.save(productCategory);
+
+		ProductCategory productCategory2 = productCategoryService
+				.findByName(productCategory.getName());
+		productCategory2.setName("Updated");
+
+		productCategoryService.update(productCategory2);
+
+		ProductCategory updatedObject = productCategoryService
+				.findByName(productCategory2.getName());
+
+		productCategoryService.delete(updatedObject);
 	}
 
-	private ProductCategory getProductCategory() {
-		ProductCategory productCategory = new ProductCategory();
-
+	private ProductCategory getTest() {
+		ProductCategory test = new ProductCategory();
 		List<String> settings = new ArrayList<String>();
 		settings.add("CPU");
-		settings.add("RAM");
-
-		productCategory.setName("test category");
-		// productCategory.setSettings(settings);
-
-		ArrayList<Integer> arrayList = new ArrayList<Integer>();
-		arrayList.add(new Integer(1));
-
-		// productCategory.setTest(arrayList);
-
-		return productCategory;
+		test.setName("test name");
+		return test;
 	}
 }

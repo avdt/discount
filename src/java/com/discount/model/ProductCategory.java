@@ -14,27 +14,21 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.CollectionOfElements;
-
 @Entity
-@Table(name = "productCategory", uniqueConstraints = { @UniqueConstraint(columnNames = "id") })
+@Table(name = "category", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "id"),
+		@UniqueConstraint(columnNames = "name") })
 public class ProductCategory {
-
 	@Id
 	@SequenceGenerator(name = "id_seq", sequenceName = "product_category_id_seq")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_seq")
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "name")
+	@Column(name = "name", nullable = false, length = 100)
 	private String name;
 
-	// @CollectionOfElements
-	// @Column(name = "settings", unique = false, nullable = false, length =
-	// 100)
-	// private List<String> settings;
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "productCategory")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "productCategory")
 	private List<Product> products;
 
 	public Integer getId() {
@@ -53,13 +47,13 @@ public class ProductCategory {
 		this.name = name;
 	}
 
-	// public List<String> getSettings() {
-	// return settings;
-	// }
-	//
-	// public void setSettings(List<String> settings) {
-	// this.settings = settings;
-	// }
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -68,19 +62,10 @@ public class ProductCategory {
 		if (obj instanceof ProductCategory) {
 			productCategory = (ProductCategory) obj;
 
-			if (this.getName().equals(productCategory.getName())
-			/* && this.getSettings().equals(productCategory.getSettings()) */) {
+			if (this.getName().equals(productCategory.getName())) {
 				result = true;
 			}
 		}
 		return result;
-	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
 	}
 }

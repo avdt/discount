@@ -13,36 +13,36 @@ import com.discount.services.ProductCategoryService;
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Autowired
-	private ProductCategoryDAO productCategoryDAO;
+	private ProductCategoryDAO testDAO;
 
 	@Override
 	public void save(ProductCategory object) {
-		this.productCategoryDAO.save(object);
+		this.testDAO.save(object);
 	}
 
 	@Override
 	public void update(ProductCategory object) {
-		this.productCategoryDAO.update(object);
+		this.testDAO.update(object);
 	}
 
 	@Override
 	public void delete(ProductCategory object) {
-		this.productCategoryDAO.delete(object);
+		this.testDAO.delete(object);
 	}
 
 	@Override
 	public ProductCategory findById(Integer id) {
-		return this.productCategoryDAO.findById(id);
+		return this.testDAO.findById(id);
 	}
 
 	@Override
 	public List<ProductCategory> findAll() {
-		return this.productCategoryDAO.findAll();
+		return this.testDAO.findAll();
 	}
 
 	@Override
-	public ProductCategory findByName(String mane) {
-		return this.productCategoryDAO.findByName(mane);
+	public ProductCategory findByName(String name) {
+		return this.testDAO.findByName(name);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.discount.services;
+package com.discount.services.impl;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.discount.dao.ProductDAO;
 import com.discount.model.Product;
+import com.discount.services.ProductService;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -42,6 +43,16 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findByClientId(Integer clientId) {
 		return productDAO.findByClientId(clientId);
+	}
+
+	@Override
+	public Product findByName(String name) {
+		return this.productDAO.findByName(name);
+	}
+
+	@Override
+	public List<Product> findByCategoryId(Integer productCategoryId) {
+		return this.productDAO.findByCategoryId(productCategoryId);
 	}
 
 }

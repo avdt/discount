@@ -30,40 +30,40 @@ public class Product {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	@JoinColumn(name = "clientId")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "client_id")
 	private Client client;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "productCategoryId")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinColumn(name = "product_category_id")
 	private ProductCategory productCategory;
 
-	@Column(name = "name", unique = true, nullable = false, length = 100)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "product")
+	private List<ProductSettings> settings;
+
+	@Column(name = "name")
 	private String name;
 
-	@Column(name = "longDescription", unique = false, nullable = true, length = 1000)
+	@Column(name = "long_description")
 	private String longDescription;
 
-	@Column(name = "shortDescription", unique = false, nullable = true, length = 100)
+	@Column(name = "short_description")
 	private String shortDescription;
 
-	@Column(name = "initialPrice", unique = false, nullable = true, length = 100)
+	@Column(name = "initial_price")
 	private Integer initialPrice;
 
-	@Column(name = "discountPrice", unique = false, nullable = false, length = 100)
+	@Column(name = "discount_price")
 	private Integer discountPrice;
 
-	@Column(name = "discount", unique = false, nullable = true, length = 100)
+	@Column(name = "discount")
 	private Integer discount;
 
-	@Column(name = "beginShowDate", unique = false, nullable = true, length = 100)
+	@Column(name = "begin_show_date")
 	private Date beginShowDate;
 
-	@Column(name = "endShowDate", unique = false, nullable = true, length = 100)
+	@Column(name = "end_show_date")
 	private Date endShowDate;
-
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	private List<ProductSettings> settings;
 
 	public Integer getId() {
 		return id;
@@ -159,6 +159,38 @@ public class Product {
 
 	public void setProductCategory(ProductCategory productCategory) {
 		this.productCategory = productCategory;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean result = false;
+		Product product;
+		if (obj instanceof Product) {
+			product = (Product) obj;
+
+			if (this.getName().equals(product.getName())
+					/*
+					 * && this.getBeginShowDate().equals(
+					 * product.getBeginShowDate())
+					 */
+					&& this.getClient().equals(product.getClient())
+					&& this.getDiscount().equals(product.getDiscount())
+					&& this.getDiscountPrice().equals(
+							product.getDiscountPrice())
+					&& this.getEndShowDate().equals(product.getEndShowDate())
+					&& this.getId().equals(product.getId())
+					&& this.getInitialPrice().equals(product.getInitialPrice())
+					&& this.getLongDescription().equals(
+							product.getLongDescription())
+					&& this.getProductCategory().equals(
+							product.getProductCategory())
+					&& this.getSettings().equals(product.getSettings())
+					&& this.getShortDescription().equals(
+							product.getShortDescription())) {
+				result = true;
+			}
+		}
+		return result;
 	}
 
 }

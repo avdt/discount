@@ -6,4 +6,8 @@ import com.discount.model.Product;
 
 public interface ProductDAO extends GenericDAO<Product> {
 	List<Product> findByClientId(Integer clientId);
+
+	Product findByName(String name);
+
+	List<Product> findByCategoryId(Integer productCategoryId);
 }
