@@ -64,7 +64,7 @@ public class ProductSettingsServiceImplTest {
 		Product initProduct = productService.findById(new Integer(1));
 		productSettings.setPropertyName("CPU");
 		productSettings.setPropertyValue("2GHz");
-		productSettings.setProduct(initProduct);
+		// productSettings.setProduct(initProduct);
 
 		return productSettings;
 	}

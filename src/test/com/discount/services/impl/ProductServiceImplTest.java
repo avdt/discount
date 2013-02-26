@@ -71,16 +71,10 @@ public class ProductServiceImplTest {
 
 		Client initClient = clientService.findByName("init client");
 
-		// ProductSettingsService productSettingsService =
-		// (ProductSettingsService) appContext
-		// .getBean("productSettingsService");
-		//
-		// ProductSettings productSettings = productSettingsService
-		// .findById(new Integer(1));
-
 		ProductSettings cpuSettings = new ProductSettings();
 		cpuSettings.setPropertyName("CPU");
 		cpuSettings.setPropertyValue("1000GHz");
+		cpuSettings.setProduct(product);
 
 		List<ProductSettings> settings = new ArrayList<ProductSettings>();
 		settings.add(cpuSettings);

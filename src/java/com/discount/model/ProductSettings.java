@@ -23,14 +23,15 @@ public class ProductSettings {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "`product_id`")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE,
+			CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "product_id", referencedColumnName = "id", insertable = true)
 	private Product product;
 
-	@Column(name = "`property_name`")
+	@Column(name = "property_name")
 	private String propertyName;
 
-	@Column(name = "`property_value`")
+	@Column(name = "property_value")
 	private String propertyValue;
 
 	public Integer getId() {
