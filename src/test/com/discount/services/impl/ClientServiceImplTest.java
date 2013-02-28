@@ -9,7 +9,7 @@ import com.discount.model.Client;
 import com.discount.services.ClientService;
 
 public class ClientServiceImplTest {
-	ApplicationContext appContext = new ClassPathXmlApplicationContext(
+	private ApplicationContext appContext = new ClassPathXmlApplicationContext(
 			"spring/config/BeanLocations.xml");
 
 	@Test

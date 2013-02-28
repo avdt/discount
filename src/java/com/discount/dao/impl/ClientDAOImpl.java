@@ -2,6 +2,7 @@ package com.discount.dao.impl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.discount.dao.ClientDAO;
@@ -11,25 +12,24 @@ import com.discount.util.CustomHibernateDaoSupport;
 @Repository
 public class ClientDAOImpl extends CustomHibernateDaoSupport implements
 		ClientDAO {
-	// private static final Logger logger =
-	// Logger.getLogger(ClientDAOImpl.class);
+	private static final Logger logger = Logger.getLogger(ClientDAOImpl.class);
 
 	@Override
 	public void save(Client client) {
 		getHibernateTemplate().save(client);
-		// logger.warn("New client created.");
+		logger.warn("New client created.");
 	}
 
 	@Override
 	public void update(Client client) {
 		getHibernateTemplate().update(client);
-		// logger.debug("Client " + client.getName() + " updated.");
+		logger.debug("Client " + client.getName() + " updated.");
 	}
 
 	@Override
 	public void delete(Client client) {
 		getHibernateTemplate().delete(client);
-		// logger.info("Client " + client.getName() + " deleted.");
+		logger.info("Client " + client.getName() + " deleted.");
 	}
 
 	@Override
